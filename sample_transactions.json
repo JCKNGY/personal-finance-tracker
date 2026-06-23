@@ -1,26 +1,18 @@
 [
   {
-    "id": 1,
-    "date": "2026-06-01",
-    "amount": 3500.00,
-    "type": "Income",
-    "category": "Salary",
-    "note": "Summer internship paycheck"
+    "Id": 1,
+    "Date": "2009-07-10",
+    "Amount": 100,
+    "Type": "Income",
+    "Category": "Bed",
+    "Note": "Done?"
   },
   {
-    "id": 2,
-    "date": "2026-06-03",
-    "amount": 45.25,
-    "type": "Expense",
-    "category": "Food",
-    "note": "Lunch with friends"
-  },
-  {
-    "id": 3,
-    "date": "2026-06-05",
-    "amount": 89.99,
-    "type": "Expense",
-    "category": "Entertainment",
-    "note": "Video game purchase"
+    "Id": 2,
+    "Date": "2000-07-12",
+    "Amount": 20,
+    "Type": "Incomes",
+    "Category": "Dka",
+    "Note": "Bomba"
   }
 ]
