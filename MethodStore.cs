@@ -43,7 +43,54 @@ namespace PersonalFinanceTracker
             transactions.Add(new Transaction(id, date.ToString("yyyy-MM-dd"), amount, type, category, note));
             Console.WriteLine("Transaction added successfully!");
         }
+        public static void EditTransaction(List<Transaction> transactions)
+        {
+            Console.WriteLine("Enter the ID of the transaction to edit:");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid ID. Please enter a valid integer:");
+            }
+            if (transactions.RemoveAll(t => t.Id == id) > 0)
+            {
+                Console.WriteLine($"Transaction with ID {id} deleted successfully.");
+            }
+            Transaction transactionToEdit = transactions.Find(t => t.Id == id);
+            if (transactionToEdit == null)
+            {
+                Console.WriteLine($"No transaction found with ID {id}.");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Enter transaction date (yyyy-MM-dd):");
+                DateTime date;
+                while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                {
+                    Console.WriteLine("Invalid date format. Please enter yyyy-MM-dd:");
+                }
+            
 
+                Console.WriteLine("Enter transaction amount:");
+                decimal amount;
+                while (!decimal.TryParse(Console.ReadLine(), out amount) || amount <= 0)
+                {
+                    Console.WriteLine("Invalid amount. Please enter a positive number:");
+                }
+
+                Console.WriteLine("Enter transaction type (Income/Expense):");
+                string type = Console.ReadLine() ?? "";
+
+                Console.WriteLine("Enter transaction category:");
+                string category = Console.ReadLine() ?? "";
+
+                Console.WriteLine("Enter transaction note:");
+                string note = Console.ReadLine() ?? "";
+
+                transactions.Add(new Transaction(id, date.ToString("yyyy-MM-dd"), amount, type, category, note));
+                Console.WriteLine("Transaction added successfully!");
+                }
+        }
         public static void ViewTransactions(List<Transaction> transactions)
         {
             if (transactions.Count == 0)
@@ -51,8 +98,95 @@ namespace PersonalFinanceTracker
                 Console.WriteLine("No transactions found.");
                 return;
             }
+
             
+            Console.WriteLine("What Category would you like to view? (Type 'All' to view all categories)");
+            string categoryFilter = Console.ReadLine() ?? "";
+            
+            if (!categoryFilter.Equals("All", StringComparison.OrdinalIgnoreCase))
+            {
+                transactions = transactions.FindAll(t => t.Category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));
+                if (transactions.Count == 0)
+                {
+                    Console.WriteLine($"No transactions found for category '{categoryFilter}'.");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"Displaying transactions for category '{categoryFilter}':");
+                    foreach (Transaction transaction in transactions)
+                    {
+                        if(transaction.Category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Console.WriteLine($"ID: {transaction.Id}, Date: {transaction.Date}, Amount: {transaction.Amount:C}, Type: {transaction.Type}, Category: {transaction.Category}, Note: {transaction.Note}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"No transactions found for category '{categoryFilter}'.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Displaying all transactions:");
+                foreach (Transaction transaction in transactions)
+                {
+                Console.WriteLine($"ID: {transaction.Id}, Date: {transaction.Date}, Amount: {transaction.Amount:C}, Type: {transaction.Type}, Category: {transaction.Category}, Note: {transaction.Note}");
+                }
+            }
+            
+        }
+
+
+        public static void ViewTransactionsByDateRange(List<Transaction> transactions)
+        {
+            if (transactions.Count == 0)
+            {
+                Console.WriteLine("No transactions found.");
+                return;
+            }   
+ 
+            Console.WriteLine("Enter start date (yyyy-MM-dd):");
+            DateTime startDate;
+            while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out startDate))
+            {
+                Console.WriteLine("Invalid date format. Please enter yyyy-MM-dd:");
+            }
+ 
+            Console.WriteLine("Enter end date (yyyy-MM-dd):");
+            DateTime endDate;
+            while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate))
+            {
+                Console.WriteLine("Invalid date format. Please enter yyyy-MM-dd:");
+            }
+ 
+            if (startDate > endDate)
+            {
+                Console.WriteLine("Start date cannot be after end date. Please try again.");
+                return;
+            }
+ 
+            List<Transaction> filteredTransactions = new List<Transaction>();
             foreach (Transaction transaction in transactions)
+            {
+                if (DateTime.TryParseExact(transaction.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime transactionDate))
+                {
+                    if (transactionDate >= startDate && transactionDate <= endDate)
+            {
+                filteredTransactions.Add(transaction);
+            }
+            }
+        }
+ 
+            if (filteredTransactions.Count == 0)
+            {
+                Console.WriteLine($"No transactions found between {startDate:yyyy-MM-dd} and {endDate:yyyy-MM-dd}.");
+                return;
+            }
+ 
+            Console.WriteLine($"Displaying transactions between {startDate:yyyy-MM-dd} and {endDate:yyyy-MM-dd}:");
+            foreach (Transaction transaction in filteredTransactions)
             {
                 Console.WriteLine($"ID: {transaction.Id}, Date: {transaction.Date}, Amount: {transaction.Amount:C}, Type: {transaction.Type}, Category: {transaction.Category}, Note: {transaction.Note}");
             }

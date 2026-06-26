@@ -25,15 +25,17 @@ namespace PersonalFinanceTracker
 
             Console.WriteLine("\nWelcome to the monthly transaction tracker!");
             Console.WriteLine("1. Add a transaction");
-            Console.WriteLine("2. View all transactions");
-            Console.WriteLine("3. Delete Transaction");
-            Console.WriteLine("4. Monthly Summary");
-            Console.WriteLine("5. Category Summary");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("2. Edit a transaction");
+            Console.WriteLine("3. View all transactions");
+            Console.WriteLine("4. Delete Transaction");
+            Console.WriteLine("5. View transactions by date range");
+            Console.WriteLine("6. Monthly Summary");
+            Console.WriteLine("7. Category Summary");
+            Console.WriteLine("8. Exit");
             while (isRunning)
             {
                 
-                Console.WriteLine("Please select an option (1-6):");
+                Console.WriteLine("Please select an option (1-8):");
 
                 switch (Console.ReadLine())
                 {
@@ -42,19 +44,26 @@ namespace PersonalFinanceTracker
                         MethodStore.SaveTransactions(monthly_transactions);
                         break;
                     case "2":
-                        MethodStore.ViewTransactions(monthly_transactions);
+                        MethodStore.EditTransaction(monthly_transactions);
+                        MethodStore.SaveTransactions(monthly_transactions);
                         break;
                     case "3":
+                        MethodStore.ViewTransactions(monthly_transactions);
+                        break;
+                    case "4":
                         MethodStore.DeleteTransaction(monthly_transactions);
                         MethodStore.SaveTransactions(monthly_transactions);
                         break;
-                    case "4":
-                        MethodStore.MonthlySummary(monthly_transactions);
-                        break;
                     case "5":
-                        MethodStore.CategorySummary(monthly_transactions);
+                        MethodStore.ViewTransactionsByDateRange(monthly_transactions);
                         break;
                     case "6":
+                        MethodStore.MonthlySummary(monthly_transactions);
+                        break;
+                    case "7":
+                        MethodStore.CategorySummary(monthly_transactions);
+                        break;
+                    case "8":
                         isRunning = false;
                         Console.WriteLine("Exiting the program. Goodbye!");
                         break;
