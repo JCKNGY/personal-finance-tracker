@@ -9,16 +9,16 @@ namespace PersonalFinanceTracker
     {
         static void Main()
         {
-            List<Transaction> monthly_transactions;
+            List<Transaction> monthlyTransactions;
             try
             {
                 string json = File.ReadAllText("sample_transactions.json");
-                monthly_transactions = JsonSerializer.Deserialize<List<Transaction>>(json);
+                monthlyTransactions = JsonSerializer.Deserialize<List<Transaction>>(json);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading transactions: {ex.Message}");
-                monthly_transactions = new List<Transaction>();
+                monthlyTransactions = new List<Transaction>();
             }
             
             bool isRunning = true;
@@ -40,28 +40,28 @@ namespace PersonalFinanceTracker
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        MethodStore.AddTransaction(monthly_transactions);
-                        MethodStore.SaveTransactions(monthly_transactions);
+                        MethodStore.AddTransaction(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
                         break;
                     case "2":
-                        MethodStore.EditTransaction(monthly_transactions);
-                        MethodStore.SaveTransactions(monthly_transactions);
+                        MethodStore.EditTransaction(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
                         break;
                     case "3":
-                        MethodStore.ViewTransactions(monthly_transactions);
+                        MethodStore.ViewTransactions(monthlyTransactions);
                         break;
                     case "4":
-                        MethodStore.DeleteTransaction(monthly_transactions);
-                        MethodStore.SaveTransactions(monthly_transactions);
+                        MethodStore.DeleteTransaction(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
                         break;
                     case "5":
-                        MethodStore.ViewTransactionsByDateRange(monthly_transactions);
+                        MethodStore.ViewTransactionsByDateRange(monthlyTransactions);
                         break;
                     case "6":
-                        MethodStore.MonthlySummary(monthly_transactions);
+                        MethodStore.MonthlySummary(monthlyTransactions);
                         break;
                     case "7":
-                        MethodStore.CategorySummary(monthly_transactions);
+                        MethodStore.CategorySummary(monthlyTransactions);
                         break;
                     case "8":
                         isRunning = false;

@@ -1,0 +1,10 @@
+June 25th 2026 Notes 
+
+- camelCase 
+- int, GUID
+	User should not be allowed to create their own ID, should be auto generated. 
+- Parse test for the amount
+- Edit each part, not completely wipe for the edit
+- CSV prompt for path and copy over. 
+- Unit Test/ should be separated from the main project.
+	- Create a new git for the Unit Test 

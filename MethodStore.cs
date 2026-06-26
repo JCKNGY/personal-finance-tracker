@@ -137,8 +137,6 @@ namespace PersonalFinanceTracker
             }
             
         }
-
-
         public static void ViewTransactionsByDateRange(List<Transaction> transactions)
         {
             if (transactions.Count == 0)
