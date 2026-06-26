@@ -12,3 +12,4 @@ C:\Users\jckng\personal-finance-tracker\obj\Debug\net10.0\refint\personal-financ
 C:\Users\jckng\personal-finance-tracker\obj\Debug\net10.0\personal-finance-tracker.pdb
 C:\Users\jckng\personal-finance-tracker\obj\Debug\net10.0\personal-finance-tracker.genruntimeconfig.cache
 C:\Users\jckng\personal-finance-tracker\obj\Debug\net10.0\ref\personal-finance-tracker.dll
+C:\Users\jckng\personal-finance-tracker\obj\Debug\net10.0\personal-finance-tracker.sourcelink.json
