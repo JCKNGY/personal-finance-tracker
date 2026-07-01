@@ -8,49 +8,54 @@ namespace PersonalFinanceTracker
 {
     public static class MethodStore
     {
-        public static void addTransaction(List<Transaction> transactions)
+        // Testable logic
+        public static void AddTransaction(List<Transaction> transactions, string date, decimal amount, string type, string category, string note)
         {
-            
-            int id = transactions.Count > 0 ? transactions[transactions.Count - 1].Id + 1 : 1;
-        
+            if (amount <= 0) throw new ArgumentException("Amount must be positive");
+            int Id = transactions.Count > 0 ? transactions[transactions.Count - 1].Id + 1 : 1;
+            transactions.Add(new Transaction(Id, date, amount, type, category, note));
+        }
+
+// Console wrapper
+    public static void AddTransactionFromConsole(List<Transaction> transactions)
+        {
             Console.WriteLine("Enter transaction date (yyyy-MM-dd):");
-            DateTime date;
-            while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+            DateTime Date;
+            while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out Date))
             {
                 Console.WriteLine("Invalid date format. Please enter yyyy-MM-dd:");
             }
 
             Console.WriteLine("Enter transaction amount:");
-            decimal amount;
-            while (!decimal.TryParse(Console.ReadLine(), out amount) || amount <= 0)
+            decimal Amount;
+            while (!decimal.TryParse(Console.ReadLine(), out Amount) || Amount <= 0)
             {
                 Console.WriteLine("Invalid amount. Please enter a positive number:");
-            }
+            }       
 
             Console.WriteLine("Enter transaction type (Income/Expense):");
-            string type = Console.ReadLine() ?? "";
+            string Type = Console.ReadLine() ?? "";
 
             Console.WriteLine("Enter transaction category:");
-            string category = Console.ReadLine() ?? "";
+            string Category = Console.ReadLine() ?? "";
 
             Console.WriteLine("Enter transaction note:");
             string note = Console.ReadLine() ?? "";
 
-            transactions.Add(new Transaction(id, date.ToString("yyyy-MM-dd"), amount, type, category, note));
-            Console.WriteLine("Transaction added successfully!");
+            AddTransaction(transactions, Date.ToString("yyyy-MM-dd"), Amount, Type, Category, note);
         }
-        public static void editTransaction(List<Transaction> transactions)
+        public static void EditTransaction(List<Transaction> Transactions)
         {
             Console.WriteLine("Enter the ID (Placement ID) of the transaction to edit:");
-            int id;
-            while (!int.TryParse(Console.ReadLine(), out id))
+            int Id;
+            while (!int.TryParse(Console.ReadLine(), out Id))
             {
                 Console.WriteLine("Invalid ID. Please enter a valid integer:");
             }
-            Transaction transactionToEdit = transactions.Find(t => t.Id == id);
+            Transaction transactionToEdit = Transactions.Find(t => t.Id == Id);
             if (transactionToEdit == null)
             {
-                Console.WriteLine($"No transaction found with ID {id}.");
+                Console.WriteLine($"No transaction found with ID {Id}.");
                 return;
             }
             Console.WriteLine("What would you like to edit? (1. Date, 2. Amount, 3. Type, 4. Category, 5. Note)");
@@ -65,7 +70,7 @@ namespace PersonalFinanceTracker
                     {
                         Console.WriteLine("Invalid date format. Please enter yyyy-MM-dd:");
                     }
-                    transactions.Find(t => t.Id == id).Date = newDate.ToString("yyyy-MM-dd");
+                    Transactions.Find(t => t.Id == Id).Date = newDate.ToString("yyyy-MM-dd");
                     break;
                 case "2":
                     Console.WriteLine("Enter new amount:");
@@ -74,31 +79,31 @@ namespace PersonalFinanceTracker
                     {
                         Console.WriteLine("Invalid amount. Please enter a positive number:");
                     }
-                    transactions.Find(t => t.Id == id).Amount = newAmount;
+                    Transactions.Find(t => t.Id == Id).Amount = newAmount;
                     break;
                 case "3":
                     Console.WriteLine("Enter new type (Income/Expense):");
                     string newType = Console.ReadLine() ?? "";
-                    transactions.Find(t => t.Id == id).Type = newType;
+                    Transactions.Find(t => t.Id == Id).Type = newType;
                     break;
                 case "4":
                     Console.WriteLine("Enter new category:");
                     string newCategory = Console.ReadLine() ?? "";
-                    transactions.Find(t => t.Id == id).Category = newCategory;
+                    Transactions.Find(t => t.Id == Id).Category = newCategory;
                     break;
                 case "5":
                     Console.WriteLine("Enter new note:");
                     string newNote = Console.ReadLine() ?? "";
-                    transactions.Find(t => t.Id == id).Note = newNote;
+                    Transactions.Find(t => t.Id == Id).Note = newNote;
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
                     return;
             }
         }
-        public static void viewTransactions(List<Transaction> transactions)
+        public static void ViewTransactions(List<Transaction> Transactions)
         {
-            if (transactions.Count == 0)
+            if (Transactions.Count == 0)
             {
                 Console.WriteLine("No transactions found.");
                 return;
@@ -106,28 +111,28 @@ namespace PersonalFinanceTracker
 
             
             Console.WriteLine("What Category would you like to view? (Type 'All' to view all categories)");
-            string categoryFilter = Console.ReadLine() ?? "";
+            string CategoryFilter = Console.ReadLine() ?? "";
             
-            if (!categoryFilter.Equals("All", StringComparison.OrdinalIgnoreCase))
+            if (!CategoryFilter.Equals("All", StringComparison.OrdinalIgnoreCase))
             {
-                transactions = transactions.FindAll(t => t.Category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase));
-                if (transactions.Count == 0)
+                Transactions = Transactions.FindAll(t => t.Category.Equals(CategoryFilter, StringComparison.OrdinalIgnoreCase));
+                if (Transactions.Count == 0)
                 {
-                    Console.WriteLine($"No transactions found for category '{categoryFilter}'.");
+                    Console.WriteLine($"No transactions found for category '{CategoryFilter}'.");
                     return;
                 }
                 else
                 {
-                    Console.WriteLine($"Displaying transactions for category '{categoryFilter}':");
-                    foreach (Transaction transaction in transactions)
+                    Console.WriteLine($"Displaying transactions for category '{CategoryFilter}':");
+                    foreach (Transaction transaction in Transactions)
                     {
-                        if(transaction.Category.Equals(categoryFilter, StringComparison.OrdinalIgnoreCase))
+                        if(transaction.Category.Equals(CategoryFilter, StringComparison.OrdinalIgnoreCase))
                         {
                             Console.WriteLine($"ID: {transaction.Id}, Date: {transaction.Date}, Amount: {transaction.Amount:C}, Type: {transaction.Type}, Category: {transaction.Category}, Note: {transaction.Note}");
                         }
                         else
                         {
-                            Console.WriteLine($"No transactions found for category '{categoryFilter}'.");
+                            Console.WriteLine($"No transactions found for category '{CategoryFilter}'.");
                         }
                     }
                 }
@@ -135,16 +140,16 @@ namespace PersonalFinanceTracker
             else
             {
                 Console.WriteLine("Displaying all transactions:");
-                foreach (Transaction transaction in transactions)
+                foreach (Transaction transaction in Transactions)
                 {
                 Console.WriteLine($"ID: {transaction.Id}, Date: {transaction.Date}, Amount: {transaction.Amount:C}, Type: {transaction.Type}, Category: {transaction.Category}, Note: {transaction.Note}");
                 }
             }
             
         }
-        public static void viewTransactionsByDateRange(List<Transaction> transactions)
+        public static void ViewTransactionsByDateRange(List<Transaction> Transactions)
         {
-            if (transactions.Count == 0)
+            if (Transactions.Count == 0)
             {
                 Console.WriteLine("No transactions found.");
                 return;
@@ -171,7 +176,7 @@ namespace PersonalFinanceTracker
             }
  
             List<Transaction> filteredTransactions = new List<Transaction>();
-            foreach (Transaction transaction in transactions)
+            foreach (Transaction transaction in Transactions)
             {
                 if (DateTime.TryParseExact(transaction.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime transactionDate))
                 {
@@ -195,7 +200,7 @@ namespace PersonalFinanceTracker
             }
         }
 
-        public static void deleteTransaction(List<Transaction> transactions)
+        public static void DeleteTransaction(List<Transaction> Transactions)
         {
             Console.WriteLine("Enter the ID of the transaction to delete:");
             int id;
@@ -204,7 +209,7 @@ namespace PersonalFinanceTracker
                 Console.WriteLine("Invalid ID. Please enter a valid integer:");
             }
 
-            if (transactions.RemoveAll(t => t.Id == id) > 0)
+            if (Transactions.RemoveAll(t => t.Id == id) > 0)
             {
                 Console.WriteLine($"Transaction with ID {id} deleted successfully.");
             }
@@ -214,28 +219,28 @@ namespace PersonalFinanceTracker
             }
         }
 
-        public static void saveTransactions(List<Transaction> transactions)
+        public static void SaveTransactions(List<Transaction> Transactions)
         {
             Console.WriteLine("What path do you want to save the transactions to? (ex., C:\\Users\\YourUsername\\Documents\\transactions.json)");
-            string filePath = Console.ReadLine();
+            string filePath = Console.ReadLine() ?? "sample_transactions.json";
             
             JsonSerializerOptions options = new JsonSerializerOptions 
             { 
                 WriteIndented = true 
             };
-            string json = JsonSerializer.Serialize(transactions, options);
+            string json = JsonSerializer.Serialize(Transactions, options);
             File.WriteAllText(filePath, json);
         }
 
-        public static void monthlySummary(List<Transaction> transactions)
+        public static void MonthlySummary(List<Transaction> Transactions)
         {
-            if (transactions.Count == 0)
+            if (Transactions.Count == 0)
             {
                 Console.WriteLine("No transactions found.");
                 return;
             }
 
-            var grouped = transactions.GroupBy(t => t.Date.Substring(0, 7));
+            var grouped = Transactions.GroupBy(t => t.Date.Substring(0, 7));
             
             foreach (var group in grouped)
             {
@@ -261,9 +266,9 @@ namespace PersonalFinanceTracker
             }
         }
 
-        public static void categorySummary(List<Transaction> transactions)
+        public static void CategorySummary(List<Transaction> Transactions)
         {
-            if (transactions.Count == 0)
+            if (Transactions.Count == 0)
             {
                 Console.WriteLine("No transactions found.");
                 return;
@@ -271,7 +276,7 @@ namespace PersonalFinanceTracker
 
             Dictionary<string, decimal> categoryTotals = new Dictionary<string, decimal>();
 
-            foreach (Transaction transaction in transactions)
+            foreach (Transaction transaction in Transactions)
             {
                 if (!categoryTotals.ContainsKey(transaction.Category))
                 {

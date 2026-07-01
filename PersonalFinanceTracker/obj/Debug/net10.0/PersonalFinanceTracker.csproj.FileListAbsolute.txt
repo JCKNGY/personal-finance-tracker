@@ -1,0 +1,15 @@
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\bin\Debug\net10.0\PersonalFinanceTracker.exe
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\bin\Debug\net10.0\PersonalFinanceTracker.deps.json
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\bin\Debug\net10.0\PersonalFinanceTracker.runtimeconfig.json
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\bin\Debug\net10.0\PersonalFinanceTracker.dll
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\bin\Debug\net10.0\PersonalFinanceTracker.pdb
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.AssemblyInfoInputs.cache
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.AssemblyInfo.cs
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.csproj.CoreCompileInputs.cache
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.sourcelink.json
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.dll
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\refint\PersonalFinanceTracker.dll
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.pdb
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\PersonalFinanceTracker.genruntimeconfig.cache
+C:\Users\jckng\personal-finance-tracker\PersonalFinanceTracker\obj\Debug\net10.0\ref\PersonalFinanceTracker.dll
