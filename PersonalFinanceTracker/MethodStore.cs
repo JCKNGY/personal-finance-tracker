@@ -11,6 +11,26 @@ namespace PersonalFinanceTracker
         // Testable logic
         public static void AddTransaction(List<Transaction> transactions, string date, decimal amount, string type, string category, string note)
         {
+            if (amount <= 0) 
+                throw new ArgumentException("Amount must be positive");
+
+            if (string.IsNullOrWhiteSpace(date))
+                throw new ArgumentException("Date is required");
+
+            if (!DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+                throw new ArgumentException("Date must be in yyyy-MM-dd format");
+
+            if (string.IsNullOrWhiteSpace(type) || 
+        !(type.Equals("Income", StringComparison.OrdinalIgnoreCase) || type.Equals("Expense", StringComparison.OrdinalIgnoreCase)))
+                throw new ArgumentException("Type must be 'Income' or 'Expense'");
+
+            if (string.IsNullOrWhiteSpace(category))
+                throw new ArgumentException("Category is required");
+
+            if (string.IsNullOrWhiteSpace(note))
+                throw new ArgumentException("Note is required");
+
+
             if (amount <= 0) throw new ArgumentException("Amount must be positive");
             int Id = transactions.Count > 0 ? transactions[transactions.Count - 1].Id + 1 : 1;
             transactions.Add(new Transaction(Id, date, amount, type, category, note));
@@ -43,6 +63,20 @@ namespace PersonalFinanceTracker
             string note = Console.ReadLine() ?? "";
 
             AddTransaction(transactions, Date.ToString("yyyy-MM-dd"), Amount, Type, Category, note);
+        }
+    public static void EditTransaction(List<Transaction> Transactions, int Id, string Date, decimal Amount, string Type, string Category, string Note)
+        {
+            Transaction transactionToEdit = Transactions.Find(t => t.Id == Id);
+            if (transactionToEdit == null)
+            {
+                throw new ArgumentException($"No transaction found with ID {Id}.");
+            }
+
+            transactionToEdit.Date = Date;
+            transactionToEdit.Amount = Amount;
+            transactionToEdit.Type = Type;
+            transactionToEdit.Category = Category;
+            transactionToEdit.Note = Note;
         }
         public static void EditTransaction(List<Transaction> Transactions)
         {

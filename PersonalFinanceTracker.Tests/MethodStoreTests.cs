@@ -50,4 +50,6 @@ public class MethodStoreTests
             var Transactions = new List<Transaction>();
             Assert.Throws<ArgumentException>(() => MethodStore.AddTransaction(Transactions, "06-01-2026", 100m, "Income", "Salary", "Test"));
         }
+
+        
 }
