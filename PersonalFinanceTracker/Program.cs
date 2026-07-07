@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using PersonalFinanceTracker;
+using System.Text.Json;
+
+namespace PersonalFinanceTracker
+{
+    class Program
+    {
+        static void Main()
+        {
+            List<Transaction> monthlyTransactions;
+            try
+            {
+                string json = File.ReadAllText("sample_transactions.json");
+                monthlyTransactions = JsonSerializer.Deserialize<List<Transaction>>(json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading transactions: {ex.Message}");
+                monthlyTransactions = new List<Transaction>();
+            }
+            
+            bool isRunning = true;
+            
+            Console.WriteLine("\nWelcome to the monthly transaction tracker!");
+            Console.WriteLine("1. Add a transaction");
+            Console.WriteLine("2. Edit a transaction");
+            Console.WriteLine("3. View all transactions");
+            Console.WriteLine("4. Delete Transaction");
+            Console.WriteLine("5. View transactions by date range");
+            Console.WriteLine("6. Monthly Summary");
+            Console.WriteLine("7. Category Summary");
+            Console.WriteLine("8. Exit");
+            while (isRunning)
+            {
+                
+                Console.WriteLine("Please select an option (1-8):");
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        MethodStore.AddTransactionFromConsole(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
+                        break;
+                    case "2":
+                        MethodStore.EditTransaction(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
+                        break;
+                    case "3":
+                        MethodStore.ViewTransactions(monthlyTransactions);
+                        break;
+                    case "4":
+                        MethodStore.DeleteTransaction(monthlyTransactions);
+                        MethodStore.SaveTransactions(monthlyTransactions);
+                        break;
+                    case "5":
+                        MethodStore.ViewTransactionsByDateRange(monthlyTransactions);
+                        break;
+                    case "6":
+                        MethodStore.MonthlySummary(monthlyTransactions);
+                        break;
+                    case "7":
+                        MethodStore.CategorySummary(monthlyTransactions);
+                        break;
+                    case "8":
+                        isRunning = false;
+                        Console.WriteLine("Exiting the program. Goodbye!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+}

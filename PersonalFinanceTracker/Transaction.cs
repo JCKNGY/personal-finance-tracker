@@ -11,6 +11,7 @@ namespace PersonalFinanceTracker
         public string Category { get; set; }
         public string Note { get; set; }
 
+        
         public Transaction(int id, string date, decimal amount, string type, string category, string note)
         {
             Id = id;

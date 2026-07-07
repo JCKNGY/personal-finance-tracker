@@ -22,7 +22,7 @@ namespace PersonalFinanceTracker
             }
             
             bool isRunning = true;
-
+            
             Console.WriteLine("\nWelcome to the monthly transaction tracker!");
             Console.WriteLine("1. Add a transaction");
             Console.WriteLine("2. Edit a transaction");
@@ -40,28 +40,28 @@ namespace PersonalFinanceTracker
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        MethodStore.AddTransaction(monthlyTransactions);
-                        MethodStore.SaveTransactions(monthlyTransactions);
+                        MethodStore.AddTransactionFromConsole(monthlyTransactions);
+                        MethodStore.saveTransactions(monthlyTransactions);
                         break;
                     case "2":
-                        MethodStore.EditTransaction(monthlyTransactions);
-                        MethodStore.SaveTransactions(monthlyTransactions);
+                        MethodStore.editTransaction(monthlyTransactions);
+                        MethodStore.saveTransactions(monthlyTransactions);
                         break;
                     case "3":
-                        MethodStore.ViewTransactions(monthlyTransactions);
+                        MethodStore.viewTransactions(monthlyTransactions);
                         break;
                     case "4":
-                        MethodStore.DeleteTransaction(monthlyTransactions);
-                        MethodStore.SaveTransactions(monthlyTransactions);
+                        MethodStore.deleteTransaction(monthlyTransactions);
+                        MethodStore.saveTransactions(monthlyTransactions);
                         break;
                     case "5":
-                        MethodStore.ViewTransactionsByDateRange(monthlyTransactions);
+                        MethodStore.viewTransactionsByDateRange(monthlyTransactions);
                         break;
                     case "6":
-                        MethodStore.MonthlySummary(monthlyTransactions);
+                        MethodStore.monthlySummary(monthlyTransactions);
                         break;
                     case "7":
-                        MethodStore.CategorySummary(monthlyTransactions);
+                        MethodStore.categorySummary(monthlyTransactions);
                         break;
                     case "8":
                         isRunning = false;
